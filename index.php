@@ -1,37 +1,46 @@
-<pre>
 <?php
-    if (isset($_POST['submit'])) {
+namespace PHP_CODE_SAMPLE;
 
-        $uniqueDomains = [];
+class FormProcessing
+{
+    function processPost()
+    {
+        if (isset($_POST['submit'])) {
 
-        foreach (preg_split('/[\s]+/', $_POST["email_field"] ) as $email) {
+            $uniqueDomains = [];
 
-            trim($email);
+            foreach (preg_split('/[\s]+/', $_POST["email_field"]) as $email) {
 
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $uniqueDomains[explode('@', $email)[1]] = null;
+                trim($email);
+
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $uniqueDomains[explode('@', $email)[1]] = null;
+                }
+            }
+
+            if (count($uniqueDomains) == 0) {
+                echo 'No valid domains were found';
+            } else {
+                echo count($uniqueDomains).' unique domains were found';
+                foreach (array_keys($uniqueDomains) as $index=>$domain) {
+                    echo '<br>' . ($index+1) . '. ' . $domain;
+                }
             }
         }
-
-        if(count($uniqueDomains) == 0){
-            echo 'No valid domains were found';
-        }
-        else{
-            echo count($uniqueDomains) . ' unique domains were found';
-            foreach(array_keys($uniqueDomains) as $domain){
-                echo '<br>' . $domain;
-            }
+        else {
+            $this->printForm();
         }
     }
-    else{
-        print_form();
-    }
 
-function print_form(){
+    function printForm()
+    {
 
-    echo '  <form action="" method="post">
+        echo '  <form action="" method="post">
     <textarea name="email_field" rows="5" cols="40" placeholder="Enter emails here" autofocus></textarea>
     <p><input type="submit" name="submit"/></p></form>';
+    }
 }
+
+$processor = new FormProcessing();
+$processor->processPost();
 ?>
-</pre>
