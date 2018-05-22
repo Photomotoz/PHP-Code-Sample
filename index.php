@@ -29,9 +29,9 @@
 
 function print_form(){
 
-    echo '<form action="" method="post" placeholder="Enter emails here" autofocus>
-    <textarea name="email_field" rows="5" cols="40"></textarea>
-    <p><input type="submit" name="submit"/></p></form>';
+    echo '  <form action="" method="post">
+    <textarea name="email_field" rows="5" cols="40" placeholder="Enter emails here" autofocus></textarea>
+    <p><input type="submit" name="submit"/></p></form>;
 }
 ?>
 </pre>
